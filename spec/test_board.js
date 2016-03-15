@@ -71,3 +71,16 @@ describe('determines valid board position', function () {
     assert.equal(false, board.valid_space(initial_board, 9));
   });
 });
+
+
+describe('determine if game tied', function () {
+
+  it('should return true if no available space', function () {
+    assert.equal(true, board.game_tied(['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X']));
+  });
+
+  it('should return false if available space', function () {
+    assert.equal(false, board.game_tied(['X', 'X', 'O', ' ', 'O', 'X', 'X', 'O', 'X']));
+    assert.equal(false, board.game_tied(board.create_new_board()));
+  });
+});
