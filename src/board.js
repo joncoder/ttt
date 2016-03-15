@@ -32,15 +32,31 @@ function win(board, marker) {
 }
 
 function winning_lines(board) {
-	var lines = [[board[0], board[1], board[2]],
-				 [board[3], board[4], board[5]],
-				 [board[6], board[7], board[8]],
-				 [board[0], board[3], board[6]],
-				 [board[1], board[4], board[7]],
-				 [board[2], board[5], board[8]],
-				 [board[0], board[4], board[8]],
-				 [board[2], board[4], board[6]]];
+	var r = rows(board),
+		l = columns(board),
+		d = diagonals(board),
+		lines = [].concat(r, l, d);
 	return lines;
+}
+
+function rows(board) {
+	var row_lines = [[board[0], board[1], board[2]],
+				 	 [board[3], board[4], board[5]],
+				 	 [board[6], board[7], board[8]]];
+	return row_lines;
+}
+
+function columns(board) {
+	var col_lines = [[board[0], board[3], board[6]],
+				 	 [board[1], board[4], board[7]],
+				 	 [board[2], board[5], board[8]]];
+	return col_lines;
+}
+
+function diagonals(board) {
+	var diag_lines = [[board[0], board[4], board[8]],
+				 	  [board[2], board[4], board[6]]];
+	return diag_lines;
 }
 
 function square(number) {
