@@ -107,4 +107,14 @@ describe('determine if game won', function () {
     assert.equal(false, board.win(current_board, "X"));
     assert.equal(false, board.win(current_board, "O"));
   });
+
+  it('should return true if winning line of marker on 2x2 board', function () {
+    assert.equal(true, board.win(["X", "X", " ", " "], "X"));
+    assert.equal(true, board.win(["X", " ", "X", " "], "X"));
+    assert.equal(true, board.win(["O", " ", " ", "O"], "O"));
+  });
+
+  it('should return true if winning line of marker on 4x4 board', function () {
+    assert.equal(true, board.win(["X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X"], "X"));
+  });
 });

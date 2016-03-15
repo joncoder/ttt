@@ -1,7 +1,7 @@
 function create_new_board(grid_size) {
 	grid_size = grid_size || 3;
 	var board = [],
-		array_size = square(grid_size);
+		array_size = Math.pow(grid_size, 2);
 	for (i = 0; i < array_size; i += 1) {
 		board.push(" ");
 	} 
@@ -24,7 +24,7 @@ function game_tied(board) {
 function win(board, marker) {
 	var lines = winning_lines(board);
 	for(var i = 0; i < lines.length; i += 1) {
-    	if (count_items_in_array(lines[i], marker) === 3) {
+    	if (count_items_in_array(lines[i], marker) === Math.sqrt(board.length)) {
         	return true;
     	}
     }
@@ -33,35 +33,46 @@ function win(board, marker) {
 
 function winning_lines(board) {
 	var r = rows(board),
-		l = columns(board),
-		d = diagonals(board),
+		l = columns(r),
+		d = diagonals(r),
 		lines = [].concat(r, l, d);
 	return lines;
 }
 
 function rows(board) {
-	var row_lines = [[board[0], board[1], board[2]],
-				 	 [board[3], board[4], board[5]],
-				 	 [board[6], board[7], board[8]]];
+	var row_lines = [],
+		row_length = Math.sqrt(board.length);
+	for (var i = 0; i < board.length; i += row_length) {
+    	row_lines.push(board.slice(i, (i + row_length)));
+	}
 	return row_lines;
 }
 
-function columns(board) {
-	var col_lines = [[board[0], board[3], board[6]],
-				 	 [board[1], board[4], board[7]],
-				 	 [board[2], board[5], board[8]]];
+function columns(row_lines) {
+	col_lines = transpose(row_lines);
 	return col_lines;
 }
 
-function diagonals(board) {
-	var diag_lines = [[board[0], board[4], board[8]],
-				 	  [board[2], board[4], board[6]]];
+function diagonals(row_lines) {
+	var left_diag = [],
+		right_diag = [],
+		diag_lines = [],
+		row_length = row_lines.length;
+	for (var i = 0; i < row_length; i += 1) {
+		left_diag.push(row_lines[i][i]);
+    	right_diag.push(row_lines[i][row_length - (i + 1)]);;
+	}
+	diag_lines.push(left_diag, right_diag);
 	return diag_lines;
 }
 
-function square(number) {
-	var square = number * number;
-	return square;
+function transpose(array) {
+ 	var transposed = array[0].map(function(_, i) { 
+  		return array.map(function(row) { 
+    		return row[i] 
+  		})
+	});
+	return transposed;
 }
 
 function available_spaces(board) {
