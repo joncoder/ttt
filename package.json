@@ -1,0 +1,11 @@
+{ 
+  "name" : "TicTacToe", 
+  "version" : "1.0.0",
+  "scripts" : {
+  	"test" : "mocha spec -w"
+  }, 
+  "devDependencies" : { 
+  	"chai" : "*", 
+  	"mocha" : "*" 
+  } 
+}
