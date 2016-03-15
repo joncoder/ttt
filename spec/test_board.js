@@ -76,11 +76,35 @@ describe('determines valid board position', function () {
 describe('determine if game tied', function () {
 
   it('should return true if no available space', function () {
-    assert.equal(true, board.game_tied(['X', 'X', 'O', 'O', 'O', 'X', 'X', 'O', 'X']));
+    assert.equal(true, board.game_tied(["X", "X", "O", "O", "O", "X", "X", "O", "X"]));
   });
 
   it('should return false if available space', function () {
-    assert.equal(false, board.game_tied(['X', 'X', 'O', ' ', 'O', 'X', 'X', 'O', 'X']));
+    assert.equal(false, board.game_tied(["X", "X", "O", " ", "O", "X", "X", "O", "X"]));
     assert.equal(false, board.game_tied(board.create_new_board()));
+  });
+});
+
+describe('determine if game won', function () {
+
+  it('should return true if winning line of marker on 3x3 board', function () {
+    assert.equal(true, board.win(["X", "X", "X", " ", " ", " ", " ", " ", " "], "X"));
+    assert.equal(true, board.win([" ", " ", " ", "X", "X", "X", " ", " ", " "], "X"));
+    assert.equal(true, board.win([" ", " ", " ", " ", " ", " ", "X", "X", "X"], "X"));
+    assert.equal(true, board.win(["O", " ", " ", "O", " ", " ", "O", " ", " "], "O"));
+    assert.equal(true, board.win([" ", "O", " ", " ", "O", " ", " ", "O", " "], "O"));
+    assert.equal(true, board.win([" ", " ", "O", " ", " ", "O", " ", " ", "O"], "O"));
+    assert.equal(true, board.win(["O", " ", " ", " ", "O", " ", " ", " ", "O"], "O"));
+    assert.equal(true, board.win([" ", " ", "X", " ", "X", " ", "X", " ", " "], "X"));
+  });
+
+  it('should return false if winning line of opposite marker on 3x3 board', function () {
+    assert.equal(false, board.win(["X", "X", "X", " ", " ", " ", " ", " ", " "], "O"));
+  });
+
+  it('should return false if no wins', function () {
+    var current_board = ["X", "X", "O", "O", "O", "X", "X", "O", "X"];
+    assert.equal(false, board.win(current_board, "X"));
+    assert.equal(false, board.win(current_board, "O"));
   });
 });
