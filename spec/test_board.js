@@ -54,3 +54,20 @@ describe('updates a board with marker', function () {
     assert.deepEqual([" ", "O", "O", " ", "X", " ", " ", " ", " "], updated_board);
   });
 });
+
+
+describe('determines valid board position', function () {
+
+  it('should return true if valid space', function () {
+    var initial_board = ["X", "O", " ", " ", " ", " ", " ", " ", " "];
+    assert.equal(true, board.valid_space(initial_board, 2));
+    assert.equal(true, board.valid_space(initial_board, 8));
+  });
+
+  it('should return false if not valid space', function () {
+    var initial_board = ["X", "O", " ", " ", " ", " ", " ", " ", " "];
+    assert.equal(false, board.valid_space(initial_board, 0));
+    assert.equal(false, board.valid_space(initial_board, -1));
+    assert.equal(false, board.valid_space(initial_board, 9));
+  });
+});

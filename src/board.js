@@ -13,6 +13,10 @@ function update_board(board, position, marker) {
 	return board;
 }
 
+function valid_space(board, position) {
+	return (board[position] === " ");
+}
+
 function square(number) {
 	var square = number * number;
 	return square;
@@ -20,3 +24,4 @@ function square(number) {
 
 exports.create_new_board = create_new_board;
 exports.update_board = update_board;
+exports.valid_space = valid_space;
