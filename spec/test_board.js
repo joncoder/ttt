@@ -118,3 +118,14 @@ describe('determine if game won', function () {
     assert.equal(true, board.win(["X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X"], "X"));
   });
 });
+
+describe('determine if game over', function () {
+
+  it('should return true if game is a tie', function () {
+    assert.equal(true, board.game_over(["X", "X", "O", "O", "O", "X", "X", "O", "X"], "X"));
+  });
+
+  it('should return true if game is won', function () {
+    assert.equal(true, board.game_over(["X", "X", " ", " "], "X"));
+  });
+});

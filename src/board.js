@@ -31,6 +31,10 @@ function win(board, marker) {
     return false;
 }
 
+function game_over(board, marker) {
+	return (win(board, marker) || game_tied(board));
+}
+
 function winning_lines(board) {
 	var r = rows(board),
 		l = columns(r),
@@ -94,3 +98,4 @@ exports.update_board = update_board;
 exports.valid_space = valid_space;
 exports.game_tied = game_tied;
 exports.win = win;
+exports.game_over = game_over;
