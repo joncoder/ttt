@@ -1,3 +1,5 @@
+var helper = require('./helper_functions');
+
 function create_new_board(grid_size) {
 	grid_size = grid_size || 3;
 	var board = [],
@@ -24,7 +26,7 @@ function game_tied(board) {
 function win(board, marker) {
 	var lines = winning_lines(board);
 	for(var i = 0; i < lines.length; i += 1) {
-    	if (count_items_in_array(lines[i], marker) === Math.sqrt(board.length)) {
+    	if (helper.count_items_in_array(lines[i], marker) === Math.sqrt(board.length)) {
         	return true;
     	}
     }
@@ -53,7 +55,7 @@ function rows(board) {
 }
 
 function columns(row_lines) {
-	col_lines = transpose(row_lines);
+	col_lines = helper.transpose(row_lines);
 	return col_lines;
 }
 
@@ -70,28 +72,11 @@ function diagonals(row_lines) {
 	return diag_lines;
 }
 
-function transpose(array) {
- 	var transposed = array[0].map(function(_, i) { 
-  		return array.map(function(row) { 
-    		return row[i] 
-  		})
-	});
-	return transposed;
-}
-
 function available_spaces(board) {
-	return (count_items_in_array(board, " "));
+	return (helper.count_items_in_array(board, " "));
 }
 
-function count_items_in_array(array, item){
-	var count = 0;
-	for(var i = 0; i < array.length; i += 1) {
-    	if (array[i] === item) {
-        	count += 1;
-    	}
-    }
-    return count;
-}
+
 
 exports.create_new_board = create_new_board;
 exports.update_board = update_board;
