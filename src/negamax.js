@@ -12,12 +12,13 @@ function negamax_move(board, current_marker, depth) {
 		game_over = board_module.game_over(board, opponent_marker),
 		rank,
 		temp_board,
+		positive_rank,
 		move;
 	if (game_over) {
 	    return score(board, current_marker, depth);
 	}
 	for(var i = 0; i < board.length; i += 1) {
-    	if (board[i] === " ") {
+    	if (board[i] === " " && depth < 6) {
         	temp_board = board_module.update_board(board.slice(0), i, current_marker);
         	rank = -negamax_move(temp_board, opponent_marker, depth + 1);
         	if (rank > best_rank) {
