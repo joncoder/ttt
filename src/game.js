@@ -1,8 +1,8 @@
 var board = require('./board');
 
 function play_game(current_board, current_player, opponent) {
-	var player_type = current_player['player'],
-		player_marker = current_player['marker'],
+	var player_type = current_player.player,
+		player_marker = current_player.marker,
 		move = require('./' + player_type).determine_move(current_board),
 		updated_board = board.update_board(current_board, move, player_marker),
 		final_state;

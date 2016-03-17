@@ -22,6 +22,7 @@ describe('selects a move', function () {
 
   it('should create a fork', function () {
     assert.equal(2, negamax.determine_move(['O', ' ', ' ', ' ', ' ', ' ', 'X', 'O', 'X'], "X"));
+    assert.equal(7, negamax.determine_move(['X', 'O', 'X', ' ', ' ', ' ', ' ', ' ', 'O'], "O"));
   });
 
   it('should block a potential fork', function () {

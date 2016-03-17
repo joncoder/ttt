@@ -2,7 +2,7 @@
   "name" : "TicTacToe", 
   "version" : "1.0.0",
   "scripts" : {
-  	"test" : "mocha spec -w"
+  	"test" : "mocha -t 10000 spec -w" 
   }, 
   "devDependencies" : { 
   	"chai" : "*", 

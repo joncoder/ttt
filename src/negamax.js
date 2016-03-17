@@ -2,33 +2,33 @@ var board_module = require('./board');
 
 function determine_move(current_board, marker) {
 	var depth = 1,
-		move = (negamax_move(current_board, marker, depth)).move;
+		move = negamax_move(current_board, marker, depth);
 	return move;
 }
 
 function negamax_move(board, current_marker, depth) {
-	var move_with_best_rank = {best_rank: -Infinity},
+	var best_rank = -Infinity,
 		opponent_marker = opponent(current_marker),
+		game_over = board_module.game_over(board, opponent_marker),
 		rank,
-		game_over = board_module.game_over(board, opponent_marker);
+		temp_board,
+		move;
 	if (game_over) {
 	    return score(board, current_marker, depth);
 	}
 	for(var i = 0; i < board.length; i += 1) {
     	if (board[i] === " ") {
-        	board = board_module.update_board(board, i, current_marker);
-        	rank = extract_neg_rank(negamax_move(board, opponent_marker, depth + 1));
-        	board = board_module.update_board(board, i, " ");
-        	if (rank > move_with_best_rank.best_rank) {
-        		move_with_best_rank.best_rank = rank;
+        	temp_board = board_module.update_board(board.slice(0), i, current_marker);
+        	rank = -negamax_move(temp_board, opponent_marker, depth + 1);
+        	if (rank > best_rank) {
+        		best_rank = rank;
         		if (depth === 1) {
-        			move_with_best_rank.move = i;
+        			move = i;
         		}
-
         	}
     	}
     }
-    return move_with_best_rank;
+    return (depth === 1 ? move : best_rank);
 }
 
 function score(board, current_marker, depth) {
@@ -43,19 +43,6 @@ function score(board, current_marker, depth) {
 
 function opponent(marker) {
 	return (marker === "X" ? "O" : "X");
-}
-
-function extract_neg_rank(rank_or_obj) {
-	// negamax_move returns either a number (score) or an object (move_with_best_rank).
-	// if object is returned, need to extract the number.
-	// for the negamax, the negative result is required.
-	var rank;
-	if (isNaN(rank_or_obj)) {
-        rank = rank_or_obj.best_rank;
-    } else {
-    	rank = rank_or_obj;
-    }
-    return -rank;
 }
 
 exports.determine_move = determine_move;
