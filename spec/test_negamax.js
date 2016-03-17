@@ -18,6 +18,7 @@ describe('selects a move', function () {
   it('should block opponent winning space', function () {
     assert.equal(0, negamax.determine_move([" ", "O", "O", " ", "X", " ", " ", "X", " "], "X"));
     assert.equal(6, negamax.determine_move(["X", "O", "O", "X", " ", " ", " ", " ", " "], "O"));
+    assert.equal(6, negamax.determine_move(["X", "X", "O", " ", "O", " ", " ", " ", " "], "X"));
   });
 
   it('should create a fork', function () {
@@ -28,6 +29,18 @@ describe('selects a move', function () {
   it('should block a potential fork', function () {
     assert.equal(1, negamax.determine_move([' ', ' ', 'X', ' ', 'O', ' ', 'X', ' ', ' '], "O"));
   });
+
+  it('should start in corner', function () {
+    assert.equal(0, negamax.determine_move([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], "O"));
+  });
+
+  it('should play in center', function () {
+    assert.equal(4, negamax.determine_move(['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], "O"));
+  });
+
+  // it('wht', function () {
+  //   assert.equal(1, negamax.determine_move([ 'X', 'X', 'O', 'X', 'O', ' ', 'O', ' ', ' ' ]))
+  // })
 });
 
 
