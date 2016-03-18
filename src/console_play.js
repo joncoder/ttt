@@ -48,8 +48,17 @@ function get_game_type(name) {
 }
 
 function get_move(board, marker) {
+	var spaces = [],
+		choice;
+	for (var i = 0; i < board.length; i += 1) {
+    	if (board[i] === " ") {
+    		board[i] = i + 1;
+    		spaces.push((i + 1).toString());
+    	}
+	}
 	print_board(board);
-	return ask(marker + ", where would you like to play?");
+	choice = ask(marker + ", where would you like to play?", {limit: spaces});
+	return (choice - 1);
 }
 
 function print_board(board) {
