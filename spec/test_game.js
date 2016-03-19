@@ -53,3 +53,10 @@ describe('games plays until game over', function () {
     assert.equal(false, board.win(final_board, "X"));
   });
 });
+
+describe('creates a new board', function () {
+
+  it('should create a new 3x3 board', function () {
+    assert.deepEqual(board.create_new_board(), game.new_board());
+  });
+});

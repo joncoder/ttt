@@ -1,1 +1,1 @@
-require('./console_play').start();
+require('./console_play').get_game_info();
