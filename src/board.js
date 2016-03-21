@@ -1,11 +1,12 @@
-var helper = require('./helper_functions');
+var helper = require('./helper_functions'),
+	representation = require('./UI_helpers');
 
 function create_new_board(grid_size) {
 	grid_size = grid_size || 3;
 	var board = [],
 		array_size = Math.pow(grid_size, 2);
 	for (i = 0; i < array_size; i += 1) {
-		board.push(" ");
+		board.push(empty_space());
 	} 
 	return board;
 }
@@ -16,17 +17,19 @@ function update_board(board, position, marker) {
 }
 
 function valid_space(board, position) {
-	return (board[position] === " ");
+	return (board[position] === empty_space());
 }
 
 function game_tied(board) {
-	return (available_spaces(board) === 0);
+	var available_spaces = helper.count_items_in_array(board, empty_space());
+	return (available_spaces === 0);
 }
 
 function win(board, marker) {
-	var lines = winning_lines(board);
+	var lines = winning_lines(board),
+		grid_size = Math.sqrt(board.length);
 	for(var i = 0; i < lines.length; i += 1) {
-    	if (helper.count_items_in_array(lines[i], marker) === Math.sqrt(board.length)) {
+    	if (helper.count_items_in_array(lines[i], marker) === grid_size) {
         	return true;
     	}
     }
@@ -72,8 +75,8 @@ function diagonals(row_lines) {
 	return diag_lines;
 }
 
-function available_spaces(board) {
-	return (helper.count_items_in_array(board, " "));
+function empty_space() {
+	return representation.empty_space_representation();
 }
 
 
@@ -84,3 +87,4 @@ exports.valid_space = valid_space;
 exports.game_tied = game_tied;
 exports.win = win;
 exports.game_over = game_over;
+exports.empty_space = empty_space;

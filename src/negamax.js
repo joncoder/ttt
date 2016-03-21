@@ -1,4 +1,5 @@
-var board_module = require('./board');
+var board_module = require('./board'),
+	representation = require('./UI_helpers');
 
 function determine_move(current_board, marker) {
 	var depth = 1,
@@ -18,7 +19,7 @@ function negamax_move(board, current_marker, depth) {
 	    return score(board, current_marker, depth);
 	}
 	for(var i = 0; i < board.length; i += 1) {
-    	if (board[i] === " ") {
+    	if (board[i] === empty_space()) {
         	temp_board = board_module.update_board(board.slice(0), i, current_marker);
         	rank = -negamax_move(temp_board, opponent_marker, depth + 1);
         	if (rank > best_rank) {
@@ -43,9 +44,14 @@ function score(board, current_marker, depth) {
 }	
 
 function opponent(marker) {
-	return (marker === "X" ? "O" : "X");
+	return representation.opponent(marker);
+}
+
+function empty_space() {
+	return representation.empty_space_representation();
 }
 
 exports.determine_move = determine_move;
 exports.score = score;
 exports.opponent = opponent;
+exports.empty_space = empty_space;

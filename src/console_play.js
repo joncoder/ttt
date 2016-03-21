@@ -1,4 +1,5 @@
-var rl = require('readline-sync');
+var rl = require('readline-sync'),
+	ui_help = require('./UI_helpers');
 
 function get_game_info() {
 	var player1,
@@ -16,9 +17,13 @@ function start_game(player1, player2) {
 	
 	display_players(player1, player2);
 	final_state = game.play_game(game.new_board(), player1, player2);
+	display_result(final_state);
+	play_again(player1, player2);	
+}
+
+function display_result(final_state) {
 	print_board(final_state.final_board);
 	print_result(final_state);
-	play_again(player1, player2);	
 }
 
 function display_players(player1, player2) {
@@ -45,25 +50,25 @@ function ask(question, limit) {
 	return rl.question("\n" + question + "\n", limit);
 }
 
-function opponent(marker) {
-	return (marker === "X" ? "O" : "X");
-}
-
 function clear_screen() {
 	process.stdout.write('\033c');
 }
 
 function get_player1_info() {
-	var player1 = {player: "human"};
+	var player1 = {player: "human"},
+		marker1 = ui_help.marker1_representation(),
+		marker2 = ui_help.marker2_representation();
+	
 	player1.name = ask("May I have your name?");
-	player1.marker = ask(player1.name + ", would you like to be X or O?", {limit: ["X", "O"]}).toUpperCase();
+	player1.marker = ask(player1.name + ", would you like to be " + marker1 + " or " + marker2 + "?", {limit: [marker1, marker2]}).toUpperCase();
 	return player1;
 }
 
 function get_player2_info(player1) {
 	var player2 = {},
 		game_type = get_game_type(player1.name);;
-	player2.marker = opponent(player1.marker);
+	
+	player2.marker = ui_help.opponent(player1.marker);
 	player2.player = game_type === "1" ? "negamax" : "human";
 	player2.name = game_type === "1" ? "the Computer" : ask("What is your friend's name?");
 	return player2;
@@ -74,15 +79,10 @@ function get_game_type(name) {
 }
 
 function get_move(board, marker) {
-	var spaces = [],
+	var spaces = ui_help.get_available_spaces(board),
+		board_with_numbers = ui_help.number_board_spaces(board),
 		choice;
-	for (var i = 0; i < board.length; i += 1) {
-    	if (board[i] === " ") {
-    		board[i] = i + 1;
-    		spaces.push((i + 1).toString());
-    	}
-	}
-	print_board(board);
+	print_board(board_with_numbers);
 	choice = ask("Where would you like to play your " + marker + "?", {limit: spaces});
 	return (choice - 1);
 }
