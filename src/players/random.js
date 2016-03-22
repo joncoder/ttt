@@ -1,4 +1,4 @@
-var board = require('./board');
+var board = require('../board');
 
 function determine_move(b) {
 	var move = Math.floor(Math.random() * b.length);

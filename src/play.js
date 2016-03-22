@@ -24,5 +24,10 @@ function play_game(player1, player2) {
 	return game.play_game(game.new_board(), player1, player2);
 }
 
+function exit() {
+	ui.display_goodbye();
+}
+
 exports.get_game_info = get_game_info;
 exports.start_game = start_game;
+exports.exit = exit;

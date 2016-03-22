@@ -1,5 +1,5 @@
 var assert = require('chai').assert,
-    negamax = require('../src/negamax.js');
+    negamax = require('../../src/players/negamax.js');
 
 describe('selects a move', function () {
 

@@ -1,5 +1,4 @@
-var ui = require('./console_play'),
-	play = require('./play');
+var play = require('./play');
 
 function play_again(player1, player2, option) {
 	if (option === "1") {
@@ -8,7 +7,7 @@ function play_again(player1, player2, option) {
 	else if (option === "2") {
 		return play.get_game_info();
 	} else {
-		return ui.display_goodbye();
+		return play.exit();
 	}
 }
 

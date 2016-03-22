@@ -1,5 +1,5 @@
-var board_module = require('./board'),
-	representation = require('./UI_helpers');
+var board_module = require('../board'),
+	representation = require('../UI_helpers');
 
 function determine_move(current_board, marker) {
 	var depth = 1,
