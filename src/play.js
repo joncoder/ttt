@@ -1,4 +1,4 @@
-var ui = require('./console_play'),
+var ui = require('./console/ui'),
 	play_again = require('./play_again');
 
 function get_game_info() {

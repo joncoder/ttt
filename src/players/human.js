@@ -1,4 +1,4 @@
-var console = require('../console_play');
+var console = require('../console/ui');
 
 function determine_move(board, marker, name) {
 	var move = console.get_move(board.slice(0), marker, name);

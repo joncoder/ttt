@@ -1,5 +1,5 @@
-var io = require('./console_io'),
-	rep = require('./marker_representation');
+var io = require('./io'),
+	rep = require('../marker_representation');
 
 function get_player1_info() {
 	var player1 = {player: "human"},

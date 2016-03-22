@@ -6,7 +6,7 @@ describe('determines a move', function () {
 
   it('should select an available space', function () {
 	  mockery.enable({ useCleanCache: true });
-  	mockery.registerSubstitute('../console_play', '../../spec/mocks/mock_console_play');
+  	mockery.registerSubstitute('../console/ui', '../../spec/mocks/mock_console_ui');
   	mockery.registerAllowable('../../src/players/human.js');
 
   	var board = [" ","X","O"," "," "," ","O","X"," "],
