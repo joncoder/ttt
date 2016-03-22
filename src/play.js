@@ -1,5 +1,6 @@
 var ui = require('./console/ui'),
-	play_again = require('./play_again');
+	play_again = require('./play_again'),
+	game = require('./game');
 
 function get_game_info() {
 	var player1,
@@ -20,8 +21,8 @@ function start_game(player1, player2) {
 }
 
 function play_game(player1, player2) {
-	var game = require('./game');
-	return game.play_game(game.new_board(), player1, player2);
+	var new_board = require('./board').create_new_board();
+	return game.play_game(new_board, player1, player2);
 }
 
 function exit() {

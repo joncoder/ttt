@@ -13,10 +13,6 @@ function play_game(current_board, current_player, opponent) {
 	return play_game(updated_board, opponent, current_player);
 }
 
-function new_board(grid_size) {
-	return board.create_new_board(grid_size);
-}
-
 function get_final_state(updated_board, current_player, opponent) {
 	var final_state = {};
 	final_state.final_board = updated_board;
@@ -27,5 +23,4 @@ function get_final_state(updated_board, current_player, opponent) {
 }
 
 exports.play_game = play_game;
-exports.new_board = new_board;
 exports.get_final_state = get_final_state;
