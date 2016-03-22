@@ -1,5 +1,4 @@
-var board_module = require('../board'),
-	rep = require('../marker_representation');
+var board_module = require('../board');
 
 function determine_move(current_board, marker) {
 	var depth = 1,
@@ -44,14 +43,12 @@ function score(board, current_marker, depth) {
 }	
 
 function opponent(marker) {
-	return rep.opponent(marker);
+	return (marker === "X" ? "O" : "X")
 }
 
 function empty_space() {
-	return rep.empty_space_representation();
+	return " ";
 }
 
 exports.determine_move = determine_move;
 exports.score = score;
-exports.opponent = opponent;
-exports.empty_space = empty_space;

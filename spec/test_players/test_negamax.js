@@ -38,22 +38,22 @@ describe('selects a move', function () {
 describe('returns a score', function () {
 
   it('should return a score of 0 if no win', function () {
-    var board = ["X", " ", " ", " "],
+    var board = [" ", "O", "O", " ", "X", " ", " ", "X", " "],
         marker = "O",
         depth = 1;
     assert.equal(0, negamax.score(board, marker, depth));
   })
 
   it('should return a score of 98 if win and depth 2', function () {
-    var board = ["X", "X", " ", " "],
-        marker = "X",
+    var board = ["O", "O", "O", " ", "X", " ", " ", "X", " "],
+        marker = "O",
         depth = 2;
     assert.equal(98, negamax.score(board, marker, depth));
   })
 
   it('should return a score of -98 if opponent win and depth 2', function () {
-    var board = ["X", "X", " ", " "],
-        marker = "O",
+    var board = ["O", "O", "O", " ", "X", " ", " ", "X", " "],
+        marker = "X",
         depth = 2;
     assert.equal(-98, negamax.score(board, marker, depth));
   })

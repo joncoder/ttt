@@ -1,6 +1,5 @@
 var assert = require('chai').assert,
-    board = require('../src/board.js'),
-    e = require('../src/marker_representation').empty_space_representation();
+    board = require('../src/board.js');
 
 describe('creates a default new board', function () {
 
@@ -8,30 +7,9 @@ describe('creates a default new board', function () {
     var new_board = board.create_new_board();
     assert(Array.isArray(new_board));
     assert.equal(9, new_board.length);
-    assert.deepEqual([e,e,e,e,e,e,e,e,e], new_board);
-  });
-
-  it('should return a nine-element array with grid-size of 3', function () {
-    var new_board = board.create_new_board(3);
-    assert(Array.isArray(new_board));
-    assert.equal(9, new_board.length);
-    assert.deepEqual([e,e,e,e,e,e,e,e,e], new_board);
-  });
-
-  it('should return a four-element array with grid-size of 2', function () {
-    var new_board = board.create_new_board(2);
-    assert(Array.isArray(new_board));
-    assert.equal(4, new_board.length);
-    assert.deepEqual([e,e,e,e], new_board);
-  });
-
-  it('should return a 16-element array with grid-size of 4', function () {
-    var new_board = board.create_new_board(4);
-    assert(Array.isArray(new_board));
-    assert.equal(16, new_board.length);
+    assert.deepEqual([" ", " ", " ", " ", " ", " ", " ", " ", " "], new_board);
   });
 });
-
 
 describe('updates a board with marker', function () {
   
@@ -52,23 +30,21 @@ describe('updates a board with marker', function () {
   });
 });
 
-
 describe('determines if a valid board position', function () {
 
   it('should return true if valid space', function () {
-    var initial_board = ["X", "O", e, e, e, e, e, e, e];
+    var initial_board = ["X", "O", " ", " ", " ", " ", " ", " ", " "];
     assert.equal(true, board.valid_space(initial_board, 2));
     assert.equal(true, board.valid_space(initial_board, 8));
   });
 
   it('should return false if not valid space', function () {
-    var initial_board = ["X", "O", e, e, e, e, e, e, e];
+    var initial_board = ["X", "O", " ", " ", " ", " ", " ", " ", " "];
     assert.equal(false, board.valid_space(initial_board, 0));
     assert.equal(false, board.valid_space(initial_board, -1));
     assert.equal(false, board.valid_space(initial_board, 9));
   });
 });
-
 
 describe('determine if game tied', function () {
 
@@ -77,14 +53,29 @@ describe('determine if game tied', function () {
   });
 
   it('should return false if available space', function () {
-    assert.equal(false, board.game_tied(["X", "X", "O", e, "O", "X", "X", "O", "X"]));
+    assert.equal(false, board.game_tied(["X", "X", "O", " ", "O", "X", "X", "O", "X"]));
     assert.equal(false, board.game_tied(board.create_new_board()));
   });
 });
 
 describe('determine if game won', function () {
 
-  it('should return true if winning line of marker on 3x3 board', function () {
+  it('should return true if line contains all player markers', function () {
+    assert.equal(true, board.winning_line(["X", "X", "X"], "X"));
+    assert.equal(true, board.winning_line(["O", "O", "O"], "O"));
+  });
+
+  it('should return false if line contains all opposite markers', function () {
+    assert.equal(false, board.winning_line(["X", "X", "X"], "O"));
+    assert.equal(false, board.winning_line(["O", "O", "O"], "X"));
+  });
+
+  it('should return false if line does not contain all player markers', function () {
+    assert.equal(false, board.winning_line(["X", "X", "O"], "X"));
+    assert.equal(false, board.winning_line(["O", " ", "O"], "O"));
+  });
+
+  it('should return true if board contains a winning line', function () {
     assert.equal(true, board.win(["X", "X", "X", " ", " ", " ", " ", " ", " "], "X"));
     assert.equal(true, board.win([" ", " ", " ", "X", "X", "X", " ", " ", " "], "X"));
     assert.equal(true, board.win([" ", " ", " ", " ", " ", " ", "X", "X", "X"], "X"));
@@ -95,24 +86,14 @@ describe('determine if game won', function () {
     assert.equal(true, board.win([" ", " ", "X", " ", "X", " ", "X", " ", " "], "X"));
   });
 
-  it('should return false if winning line of opposite marker on 3x3 board', function () {
+  it('should return false if board contains winning line of opposite marker', function () {
     assert.equal(false, board.win(["X", "X", "X", " ", " ", " ", " ", " ", " "], "O"));
   });
 
-  it('should return false if no wins', function () {
+  it('should return false if board contains no wins', function () {
     var current_board = ["X", "X", "O", "O", "O", "X", "X", "O", "X"];
     assert.equal(false, board.win(current_board, "X"));
     assert.equal(false, board.win(current_board, "O"));
-  });
-
-  it('should return true if winning line of marker on 2x2 board', function () {
-    assert.equal(true, board.win(["X", "X", " ", " "], "X"));
-    assert.equal(true, board.win(["X", " ", "X", " "], "X"));
-    assert.equal(true, board.win(["O", " ", " ", "O"], "O"));
-  });
-
-  it('should return true if winning line of marker on 4x4 board', function () {
-    assert.equal(true, board.win(["X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X", " ", " ", " ", " ", "X"], "X"));
   });
 });
 
@@ -123,6 +104,6 @@ describe('determine if game over', function () {
   });
 
   it('should return true if game is won', function () {
-    assert.equal(true, board.game_over(["X", "X", " ", " "], "X"));
+    assert.equal(true, board.game_over(["X", "X", "X", "O", "O", " ", " ", " ", " "], "X"));
   });
 });
