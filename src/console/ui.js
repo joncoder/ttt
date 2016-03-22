@@ -1,14 +1,11 @@
-var io = require('./io'),
-	rep = require('../marker_representation');
+var io = require('./io');
 
 function get_player1_info() {
-	var player1 = {player: "human"},
-		marker1 = rep.marker1_representation(),
-		marker2 = rep.marker2_representation();
+	var player1 = {player: "human"};
 	
 	io.clear_screen();
 	player1.name = io.ask("May I have your name?");
-	player1.marker = io.ask(player1.name + ", would you like to be " + marker1 + " or " + marker2 + "?", {limit: [marker1, marker2]}).toUpperCase();
+	player1.marker = io.ask(player1.name + ", would you like to be X or O?", {limit: ["X", "O"]}).toUpperCase();
 	return player1;
 }
 
@@ -19,7 +16,7 @@ function get_game_type(name) {
 function get_player2_info(player1, game_type) {
 	var player2 = {};
 	
-	player2.marker = rep.opponent(player1.marker);
+	player2.marker = player1.marker === "X" ? "O" : "X";
 	player2.player = game_type === "1" ? get_ai_level() : "human";
 	player2.name = game_type === "1" ? "the Computer" : io.ask("What is your friend's name?");
 	return player2;
@@ -43,13 +40,32 @@ function display_players(player1, player2) {
 }
 
 function get_move(board, marker, name) {
-	var spaces = rep.get_available_spaces(board),
-		board_with_numbers = rep.number_board_spaces(board),
+	var spaces = get_available_spaces(board),
+		board_with_numbers = number_board_spaces(board),
 		choice;
 	io.clear_screen();
 	display_board(board_with_numbers);
 	choice = get_move_choice(name, marker, spaces);
 	return (choice - 1);
+}
+
+function number_board_spaces(board) {
+	for (var i = 0; i < board.length; i += 1) {
+    	if (board[i] === " ") {
+    		board[i] = i + 1;
+    	}
+	}
+	return board;
+}
+
+function get_available_spaces(board) {
+	var spaces = [];
+	for (var i = 0; i < board.length; i += 1) {
+    	if (board[i] === " ") {
+    		spaces.push((i + 1));
+    	}
+	}
+	return spaces;
 }
 
 function get_move_choice(name, marker, spaces) {
@@ -105,6 +121,8 @@ exports.display_result = display_result;
 exports.display_goodbye = display_goodbye;
 exports.display_board = display_board;
 exports.display_final_state = display_final_state;
+exports.number_board_spaces = number_board_spaces;
+exports.get_available_spaces = get_available_spaces;
 
 
 
