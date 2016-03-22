@@ -1,5 +1,5 @@
 var assert = require('chai').assert,
-    ai = require('../src/ai.js');
+    ai = require('../src/random.js');
 
 describe('selects a move', function () {
 

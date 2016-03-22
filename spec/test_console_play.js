@@ -25,7 +25,20 @@ describe('gets user input', function () {
   	mockery.registerAllowable('../src/console_play');
 
   	var result = require(console_play).get_game_type("name"),
-  		options = [1,2];
+  		options = ["1","2"];
+    assert(options.indexOf(result) > -1);
+    
+    mockery.deregisterAll();
+    mockery.disable();
+  });
+
+  it('should get the ai level', function () {
+    mockery.enable({ useCleanCache: true });
+    mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
+    mockery.registerAllowable('../src/console_play');
+
+    var result = require(console_play).get_ai_level(),
+        options = ["random", "random_negamax", "negamax"];
     assert(options.indexOf(result) > -1);
     
     mockery.deregisterAll();
@@ -38,10 +51,11 @@ describe('gets user input', function () {
   	mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
 
   	var player1 = {player: "human", name: "test", marker: "X"},
-  		game_type = "1",
-  		player2 = require(console_play).get_player2_info(player1, game_type);
+  		  game_type = "1",
+  		  player2 = require(console_play).get_player2_info(player1, game_type),
+        level_options = ["random", "random_negamax", "negamax"];
     
-    assert(player2.player === "negamax");
+    assert(level_options.indexOf(player2.player) > -1);
     assert(player2.name === "the Computer");
     assert(player2.marker === "O");
     
@@ -72,7 +86,7 @@ describe('gets user input', function () {
   	mockery.registerAllowable('../src/console_play');
 
   	var result = require(console_play).get_play_again("name1", "name2"),
-  		options = [1,2,3];
+  		options = ["1","2","3"];
     assert(options.indexOf(result) > -1);
     
     mockery.deregisterAll();

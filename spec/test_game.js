@@ -7,8 +7,8 @@ describe('games plays until game over', function () {
 
   it('should end game when game over random ai', function () {
   	var initial_board = [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        player1 = {'player': 'ai', 'marker': 'X'},
-        player2 = {'player': 'ai', 'marker': 'O'},
+        player1 = {'player': 'random', 'marker': 'X'},
+        player2 = {'player': 'random', 'marker': 'O'},
         final_game_state = game.play_game(initial_board.slice(0), player1, player2),
         final_board = final_game_state.final_board,
         last_player = final_game_state.last_player.marker,
@@ -87,18 +87,3 @@ describe('creates final state', function () {
     assert.equal(true, final_state.win);
   });
 });
-
-
-
-
-
-
-
-// function get_final_state(updated_board, current_player, opponent) {
-//   var final_state = {};
-//   final_state.final_board = updated_board;
-//   final_state.last_player = current_player;
-//   final_state.opponent = opponent;
-//   final_state.win = board.win(updated_board, current_player.marker);
-//   return final_state;
-// }

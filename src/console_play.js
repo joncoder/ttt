@@ -13,7 +13,7 @@ function get_player1_info() {
 }
 
 function get_game_type(name) {
-	return io.ask(name + ", would you like a 1 or 2 player game?", {limit: [1,2]});
+	return io.ask(name + ", would you like a 1 or 2 player game?", {limit: ["1","2"]});
 }
 
 function get_player2_info(player1, game_type) {
@@ -21,9 +21,21 @@ function get_player2_info(player1, game_type) {
 		player2 = {};
 	
 	player2.marker = ui_help.opponent(player1.marker);
-	player2.player = game_type === "1" ? "negamax" : "human";
+	player2.player = game_type === "1" ? get_ai_level() : "human";
 	player2.name = game_type === "1" ? "the Computer" : io.ask("What is your friend's name?");
 	return player2;
+}
+
+function get_ai_level() {
+	var answer = io.ask("What computer level? 1 (easy), 2 (medium), or 3 (hard)?", {limit: ["1","2","3"]});
+	if (answer === "1") {
+		return "random";
+	}
+	else if (answer === "2") {
+		return "random_negamax";
+	} else if (answer === "3"){
+		return "negamax";
+	}
 }
 
 function display_players(player1, player2) {
@@ -76,7 +88,7 @@ function get_play_again(player1_name, player2_name) {
 	return io.ask(player1_name + ", would you like to\n\n" +
 					"  1) play another game against " + player2_name + "?\n" +   
 	   				"  2) play a new game?\n" +
-	   				"  3) or, leave for now?", {limit: [1, 2, 3]});
+	   				"  3) or, leave for now?", {limit: ["1", "2", "3"]});
 }
 
 function display_goodbye() {
@@ -89,6 +101,7 @@ exports.get_game_type = get_game_type;
 exports.get_player1_info = get_player1_info;
 exports.get_player2_info = get_player2_info;
 exports.get_play_again = get_play_again;
+exports.get_ai_level = get_ai_level;
 exports.display_players = display_players;
 exports.display_result = display_result;
 exports.display_goodbye = display_goodbye;
