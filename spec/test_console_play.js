@@ -146,15 +146,6 @@ describe('prints output', function () {
 
   	var board = [" ","X","O"," "," "," ","O","X"," "],
   		result = require(console_play).display_board(board);
-    // assert(result === "   |   |   \n" + 
-				//   "   | X | O \n" +
-				//   "___|___|___\n" +
-				//   "   |   |   \n" + 
-				//   "   |   |   \n"
-				//   "___|___|___\n" +
-				//   "   |   |   \n" + 
-				//   " O | X |   \n" +
-				//   "   |   |   \n");
   	assert.include(result, "   | X | O \n");
   	assert.include(result, "   |   |   \n");
   	assert.include(result, " O | X |   \n");

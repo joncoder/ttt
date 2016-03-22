@@ -33,13 +33,7 @@ describe('selects a move', function () {
   it('should start in corner', function () {
     assert.equal(0, negamax.determine_move([' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], "O"));
   });
-
-  // it('should play in center', function () {
-  //   assert.equal(4, negamax.determine_move(['X', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' '], "O"));
-  // });
 });
-
-
 
 describe('returns a score', function () {
 
@@ -62,16 +56,5 @@ describe('returns a score', function () {
         marker = "O",
         depth = 2;
     assert.equal(-98, negamax.score(board, marker, depth));
-  })
-});
-
-describe('changes marker', function () {
-
-  it('should return X when passed O', function () {
-    assert.equal("X", negamax.opponent("O"));
-  })
-
-  it('should return O when passed X', function () {
-    assert.equal("O", negamax.opponent("X"));
   })
 });
