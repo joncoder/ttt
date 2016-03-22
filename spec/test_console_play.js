@@ -71,7 +71,7 @@ describe('gets user input', function () {
   	mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
   	mockery.registerAllowable('../src/console_play');
 
-  	var result = require(console_play).ask_play_again("name1", "name2"),
+  	var result = require(console_play).get_play_again("name1", "name2"),
   		options = [1,2,3];
     assert(options.indexOf(result) > -1);
     
@@ -118,7 +118,7 @@ describe('prints output', function () {
 
   	var win = false,
   		name = "name",
-  		result = require(console_play).print_result(win, name);
+  		result = require(console_play).display_result(win, name);
     assert(result === "Game tied!");
     
     mockery.deregisterAll();
@@ -132,8 +132,32 @@ describe('prints output', function () {
 
   	var win = true,
   		name = "name",
-  		result = require(console_play).print_result(win, name);
+  		result = require(console_play).display_result(win, name);
     assert(result === "name wins!");
+    
+    mockery.deregisterAll();
+    mockery.disable();
+  });
+
+  it('should display board', function () {
+  	mockery.enable({ useCleanCache: true });
+  	mockery.registerAllowable('../src/console_play');
+  	mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
+
+  	var board = [" ","X","O"," "," "," ","O","X"," "],
+  		result = require(console_play).display_board(board);
+    // assert(result === "   |   |   \n" + 
+				//   "   | X | O \n" +
+				//   "___|___|___\n" +
+				//   "   |   |   \n" + 
+				//   "   |   |   \n"
+				//   "___|___|___\n" +
+				//   "   |   |   \n" + 
+				//   " O | X |   \n" +
+				//   "   |   |   \n");
+  	assert.include(result, "   | X | O \n");
+  	assert.include(result, "   |   |   \n");
+  	assert.include(result, " O | X |   \n");
     
     mockery.deregisterAll();
     mockery.disable();
