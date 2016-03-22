@@ -1,8 +1,7 @@
-var console = require('./console_play'),
-	board = require('./board');
+var console = require('./console_play');
 
-function determine_move(b, marker) {
-	var move = console.get_move(b.slice(0), marker);
+function determine_move(board, marker, name) {
+	var move = console.get_move(board.slice(0), marker, name);
 	return move;
 }
 

@@ -117,23 +117,23 @@ describe('prints output', function () {
   	mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
 
   	var win = false,
-  		name = "name",
-  		result = require(console_play).display_result(win, name);
+  		  name = "name",
+  		  result = require(console_play).display_result(win, name);
     assert(result === "Game tied!");
     
     mockery.deregisterAll();
     mockery.disable();
   });
 
-  it('should display name of winner if game won', function () {
+  it('should display name and marker of winner if game won', function () {
   	mockery.enable({ useCleanCache: true });
   	mockery.registerAllowable('../src/console_play');
   	mockery.registerSubstitute('./console_io', '../spec/mock_console_io');
 
   	var win = true,
-  		name = "name",
-  		result = require(console_play).display_result(win, name);
-    assert(result === "name wins!");
+  		  last_player = {name: "name1", marker: "X", player: "human"};
+  		  result = require(console_play).display_result(win, last_player);
+    assert(result === "name1 (X) wins!");
     
     mockery.deregisterAll();
     mockery.disable();

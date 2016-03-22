@@ -31,14 +31,19 @@ function display_players(player1, player2) {
 	return io.print(player1.name + " is " + player1.marker + ", and " + player2.name + " is " + player2.marker);
 }
 
-function get_move(board, marker) {
+function get_move(board, marker, name) {
 	var ui_help = require('./UI_helpers'),
 		spaces = ui_help.get_available_spaces(board),
 		board_with_numbers = ui_help.number_board_spaces(board),
 		choice;
+	io.clear_screen();
 	display_board(board_with_numbers);
-	choice = io.ask("Where would you like to play your " + marker + "?", {limit: spaces});
+	choice = get_move_choice(name, marker, spaces);
 	return (choice - 1);
+}
+
+function get_move_choice(name, marker, spaces) {
+	return io.ask(name + ", where would you like to play your " + marker + "?", {limit: spaces});
 }
 
 function display_board(board) {
@@ -56,12 +61,12 @@ function display_board(board) {
 
 function display_final_state(final_state) {
 	display_board(final_state.final_board);
-	display_result(final_state.win, final_state.last_player.name);
+	display_result(final_state.win, final_state.last_player);
 }
 
-function display_result(win, name) {
+function display_result(win, last_player) {
 	if (win === true) {
-		return io.print(name + " wins!")
+		return io.print(last_player.name + " (" + last_player.marker + ") wins!");
 	} else {
 		return io.print("Game tied!");
 	}
