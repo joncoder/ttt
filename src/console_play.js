@@ -1,10 +1,10 @@
-var io = require('./console_io');
+var io = require('./console_io'),
+	rep = require('./marker_representation');
 
 function get_player1_info() {
-	var ui_help = require('./UI_helpers'),
-		player1 = {player: "human"},
-		marker1 = ui_help.marker1_representation(),
-		marker2 = ui_help.marker2_representation();
+	var player1 = {player: "human"},
+		marker1 = rep.marker1_representation(),
+		marker2 = rep.marker2_representation();
 	
 	io.clear_screen();
 	player1.name = io.ask("May I have your name?");
@@ -17,10 +17,9 @@ function get_game_type(name) {
 }
 
 function get_player2_info(player1, game_type) {
-	var ui_help = require('./UI_helpers'),
-		player2 = {};
+	var player2 = {};
 	
-	player2.marker = ui_help.opponent(player1.marker);
+	player2.marker = rep.opponent(player1.marker);
 	player2.player = game_type === "1" ? get_ai_level() : "human";
 	player2.name = game_type === "1" ? "the Computer" : io.ask("What is your friend's name?");
 	return player2;
@@ -44,9 +43,8 @@ function display_players(player1, player2) {
 }
 
 function get_move(board, marker, name) {
-	var ui_help = require('./UI_helpers'),
-		spaces = ui_help.get_available_spaces(board),
-		board_with_numbers = ui_help.number_board_spaces(board),
+	var spaces = rep.get_available_spaces(board),
+		board_with_numbers = rep.number_board_spaces(board),
 		choice;
 	io.clear_screen();
 	display_board(board_with_numbers);

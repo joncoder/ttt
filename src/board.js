@@ -1,5 +1,5 @@
 var helper = require('./helper_functions'),
-	representation = require('./UI_helpers');
+	rep = require('./marker_representation');
 
 function create_new_board(grid_size) {
 	grid_size = grid_size || 3;
@@ -76,7 +76,7 @@ function diagonals(row_lines) {
 }
 
 function empty_space() {
-	return representation.empty_space_representation();
+	return rep.empty_space_representation();
 }
 
 

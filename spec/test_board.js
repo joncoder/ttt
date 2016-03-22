@@ -1,6 +1,6 @@
 var assert = require('chai').assert,
     board = require('../src/board.js'),
-    e = require('../src/UI_helpers').empty_space_representation();
+    e = require('../src/marker_representation').empty_space_representation();
 
 describe('creates a default new board', function () {
 

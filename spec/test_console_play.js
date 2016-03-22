@@ -6,7 +6,7 @@ describe('gets user input', function () {
 
   it('should get player1 info', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowables(['../src/console_play', './UI_helpers']);
+  	mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var result = require(console_play).get_player1_info(),
@@ -21,8 +21,8 @@ describe('gets user input', function () {
 
   it('should get the play type', function () {
   	mockery.enable({ useCleanCache: true });
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
-  	mockery.registerAllowable('../src/console_play');
 
   	var result = require(console_play).get_game_type("name"),
   		options = ["1","2"];
@@ -34,8 +34,8 @@ describe('gets user input', function () {
 
   it('should get the ai level', function () {
     mockery.enable({ useCleanCache: true });
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
     mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
-    mockery.registerAllowable('../src/console_play');
 
     var result = require(console_play).get_ai_level(),
         options = ["random", "random_negamax", "negamax"];
@@ -47,7 +47,7 @@ describe('gets user input', function () {
 
   it('should get player2 info for 1 player game', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowables(['../src/console_play', './UI_helpers']);
+  	mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var player1 = {player: "human", name: "test", marker: "X"},
@@ -65,7 +65,7 @@ describe('gets user input', function () {
 
   it('should get player2 info for 2 player game', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowables(['../src/console_play', './UI_helpers']);
+  	mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var player1 = {player: "human", name: "test", marker: "O"},
@@ -82,8 +82,8 @@ describe('gets user input', function () {
 
   it('should return choice for play again', function () {
   	mockery.enable({ useCleanCache: true });
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
-  	mockery.registerAllowable('../src/console_play');
 
   	var result = require(console_play).get_play_again("name1", "name2"),
   		options = ["1","2","3"];
@@ -96,7 +96,7 @@ describe('gets user input', function () {
   it('should get the move', function () {
   	mockery.enable({ useCleanCache: true });
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
-  	mockery.registerAllowables(['../src/console_play', './UI_helpers']);
+  	mockery.registerAllowables(['../src/console_play', './marker_representation']);
 
   	var board = [" ","X","O"," "," "," ","O","X"," "],
   		marker = "X",
@@ -113,7 +113,7 @@ describe('prints output', function () {
 
   it('should display players', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowable('../src/console_play');
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var player1 = {player: 'human', name: 'name1', marker: 'X'},
@@ -127,7 +127,7 @@ describe('prints output', function () {
 
   it('should display game tied if game tied', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowable('../src/console_play');
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var win = false,
@@ -141,7 +141,7 @@ describe('prints output', function () {
 
   it('should display name and marker of winner if game won', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowable('../src/console_play');
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var win = true,
@@ -155,7 +155,7 @@ describe('prints output', function () {
 
   it('should display board', function () {
   	mockery.enable({ useCleanCache: true });
-  	mockery.registerAllowable('../src/console_play');
+    mockery.registerAllowables(['../src/console_play', './marker_representation']);
   	mockery.registerSubstitute('./console_io', '../spec/mocks/mock_console_io');
 
   	var board = [" ","X","O"," "," "," ","O","X"," "],
