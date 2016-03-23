@@ -4,11 +4,13 @@
   "scripts" : {
   	"test" : "mocha -t 10000 spec --recursive -w",
   	"start" : "node src/main.js" 
+  },
+  "dependencies" : { 
+    "readline-sync" : "*"
   }, 
   "devDependencies" : { 
   	"chai" : "*", 
   	"mocha" : "*",
-  	"readline-sync" : "*",
   	"mockery" : "*"
   } 
 }
