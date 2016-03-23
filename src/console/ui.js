@@ -39,36 +39,9 @@ function display_players(player1, player2) {
 	return io.print(player1.name + " is " + player1.marker + ", and " + player2.name + " is " + player2.marker);
 }
 
-function get_move(board, marker, name) {
-	var spaces = get_available_spaces(board),
-		board_with_numbers = number_board_spaces(board),
-		choice;
+function get_move_choice(name, marker, spaces, board) {
 	io.clear_screen();
-	display_board(board_with_numbers);
-	choice = get_move_choice(name, marker, spaces);
-	return (choice - 1);
-}
-
-function number_board_spaces(board) {
-	for (var i = 0; i < board.length; i += 1) {
-    	if (board[i] === " ") {
-    		board[i] = i + 1;
-    	}
-	}
-	return board;
-}
-
-function get_available_spaces(board) {
-	var spaces = [];
-	for (var i = 0; i < board.length; i += 1) {
-    	if (board[i] === " ") {
-    		spaces.push((i + 1));
-    	}
-	}
-	return spaces;
-}
-
-function get_move_choice(name, marker, spaces) {
+	display_board(board);
 	return io.ask(name + ", where would you like to play your " + marker + "?", {limit: spaces});
 }
 
@@ -109,8 +82,6 @@ function display_goodbye() {
 	return io.print("Bye!");
 }
 
-
-exports.get_move = get_move;
 exports.get_game_type = get_game_type;
 exports.get_player1_info = get_player1_info;
 exports.get_player2_info = get_player2_info;
@@ -121,8 +92,4 @@ exports.display_result = display_result;
 exports.display_goodbye = display_goodbye;
 exports.display_board = display_board;
 exports.display_final_state = display_final_state;
-exports.number_board_spaces = number_board_spaces;
-exports.get_available_spaces = get_available_spaces;
-
-
-
+exports.get_move_choice = get_move_choice;

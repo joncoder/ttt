@@ -6,14 +6,15 @@ describe('determines a move', function () {
 
   it('should select an available space', function () {
 	  mockery.enable({ useCleanCache: true });
-  	mockery.registerSubstitute('../console/ui', '../../spec/mocks/mock_console_ui');
-  	mockery.registerAllowable('../../src/players/human.js');
+  	mockery.registerSubstitute('./io', '../../spec/mocks/mock_console_io');
+  	mockery.registerAllowables(['../../src/players/human.js', '../console/get_user_move', './ui']);
 
   	var board = [" ","X","O"," "," "," ","O","X"," "],
   		marker = "X",
   		name = "test_name",
-  		result = require(human).determine_move(board, marker, name);
-    assert.equal("selected move", result);
+  		result = require(human).determine_move(board, marker, name),
+      options = [0,3,4,5,8];
+    assert(options.indexOf(result) > -1);
     
     mockery.deregisterAll();
     mockery.disable();
