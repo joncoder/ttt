@@ -39,10 +39,16 @@ function display_players(player1, player2) {
 	return io.print(player1.name + " is " + player1.marker + ", and " + player2.name + " is " + player2.marker);
 }
 
+function display_player_start(first_player) {
+	return io.print("On a coin toss, " + first_player.name + " starts!");
+}
+
 function get_move_choice(name, marker, spaces, board) {
-	io.clear_screen();
+	var choice;
 	display_board(board);
-	return io.ask(name + ", where would you like to play your " + marker + "?", {limit: spaces});
+	choice = io.ask(name + ", where would you like to play your " + marker + "?", {limit: spaces});
+	io.clear_screen();
+	return choice;
 }
 
 function display_board(board) {
@@ -87,9 +93,10 @@ exports.get_player1_info = get_player1_info;
 exports.get_player2_info = get_player2_info;
 exports.get_play_again = get_play_again;
 exports.get_ai_level = get_ai_level;
+exports.get_move_choice = get_move_choice;
 exports.display_players = display_players;
+exports.display_player_start = display_player_start;
 exports.display_result = display_result;
 exports.display_goodbye = display_goodbye;
 exports.display_board = display_board;
 exports.display_final_state = display_final_state;
-exports.get_move_choice = get_move_choice;

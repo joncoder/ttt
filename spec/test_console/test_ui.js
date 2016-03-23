@@ -56,6 +56,16 @@ describe('gets user input', function () {
     assert(player2.marker === "X");
   });
 
+  it('should get move choice', function () {
+    var name = "name1",
+        marker = "X",
+        spaces = [1,2,3,4,5,6,7,8,9],
+        board = [" "," "," "," "," "," "," "," "," "],
+        choice = require(ui).get_move_choice(name, marker, spaces, board);
+    
+    assert(spaces.indexOf(choice) > -1);
+  });
+
   it('should return choice for play again', function () {
   	var result = require(ui).get_play_again("name1", "name2"),
   		  options = ["1","2","3"];
@@ -83,6 +93,12 @@ describe('prints output', function () {
     assert(result === "name1 is X, and name2 is O");
   });
 
+  it('should display player to start', function () {
+    var player = {player: 'human', name: 'name1', marker: 'X'},
+        result = require(ui).display_player_start(player);
+    assert(result === "On a coin toss, name1 starts!");
+  });
+
   it('should display game tied if game tied', function () {
     var win = false,
   		  name = "name",
@@ -103,5 +119,10 @@ describe('prints output', function () {
   	assert.include(result, "   | X | O \n");
   	assert.include(result, "   |   |   \n");
   	assert.include(result, " O | X |   \n");
+  });
+
+  it('should display goodbye', function () {
+    var result = require(ui).display_goodbye();
+    assert(result === "Bye!");
   });
 });
