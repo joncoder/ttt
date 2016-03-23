@@ -5,8 +5,8 @@ describe('games plays until game over', function () {
 
   it('should end game when game over random ai', function () {
   	var initial_board = [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        player1 = {'player': 'random', 'marker': 'X'},
-        player2 = {'player': 'random', 'marker': 'O'},
+        player1 = {player: 'random', marker: 'X'},
+        player2 = {player: 'random', marker: 'O'},
         final_game_state = game.play_game(initial_board.slice(0), player1, player2),
         final_board = final_game_state.final_board;
         
@@ -17,8 +17,8 @@ describe('games plays until game over', function () {
 
   it('should end game in tie with two negamax ai', function () {
     var initial_board = [" ", " ", " ", " ", " ", " ", " ", " ", " "],
-        player1 = {'player': 'negamax', 'marker': 'X'},
-        player2 = {'player': 'negamax', 'marker': 'O'},
+        player1 = {player: 'negamax', marker: 'X'},
+        player2 = {player: 'negamax', marker: 'O'},
         final_game_state = game.play_game(initial_board.slice(0), player1, player2),
         final_board = final_game_state.final_board;
         
