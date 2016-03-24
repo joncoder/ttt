@@ -1,6 +1,7 @@
 var ui = require('./console/ui'),
 	play_again = require('./play_again'),
-	game = require('./game');
+	game = require('./game'),
+	board_module = require('./board');
 
 function get_game_info() {
 	var players;
@@ -31,7 +32,7 @@ function get_player_order(coin_toss, player1, player2) {
 }
 
 function play_game(player1, player2) {
-	var board = require('./board').create_new_board(),
+	var board = board_module.create_new_board(),
 		final_state;
 	final_state = game.play_game(board, player1, player2);
 	end_game(final_state);
